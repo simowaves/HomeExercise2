@@ -7,7 +7,7 @@
     tools:context=".NoteListActivity">
 
     <TextView
-        android:id="@+id/list_from"
+        android:id="@+id/user_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -27,13 +27,14 @@
         app:layout_constraintBottom_toTopOf="@+id/note_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_from" />
+        app:layout_constraintTop_toBottomOf="@+id/user_info" />
 
     <Button
         android:id="@+id/note_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:onClick="addNote"
         android:text="Add note"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
