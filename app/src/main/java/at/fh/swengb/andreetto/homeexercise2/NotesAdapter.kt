@@ -34,6 +34,6 @@ class NotesAdapter(): RecyclerView.Adapter<NotesViewHolder>() {
 class NotesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     fun bindItem(note: Note) {
         itemView.item_title.text = note.noteTitle
-        itemView.item_title.text = note.noteContent
+        itemView.item_content.text = note.noteContent
     }
 }

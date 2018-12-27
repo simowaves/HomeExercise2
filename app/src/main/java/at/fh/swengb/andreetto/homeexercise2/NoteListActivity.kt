@@ -15,6 +15,8 @@ class NoteListActivity : AppCompatActivity() {
 
     private val notesAdapter = NotesAdapter()
 
+    lateinit var db: NotesRoomDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_list)
@@ -24,21 +26,28 @@ class NoteListActivity : AppCompatActivity() {
         recycler_view.adapter = notesAdapter
         recycler_view.layoutManager = LinearLayoutManager(this)
 
-        val sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
 
         val savedUser = sharedPreferences.getString("MY_USER_NAME", null)
-        val savedAge = sharedPreferences.getInt("MY_USER_AGE", -1).toString()
+        val savedAge  = sharedPreferences.getInt("MY_USER_AGE", -1).toString()
 
-        user_info.text = "${savedUser} - ${savedAge}"
+        user_info.text = "User: ${savedUser}  Age: ${savedAge}"
+        Log.i("MyActivity", "onCreate User: ${savedUser}  Age: ${savedAge}")
+
+        db = NotesRoomDatabase.getDatabase(this)
+        notesAdapter.updateList(db.noteDao.findAll())
     }
 
     override fun onStart() {
+
         super.onStart()
-        notesAdapter.updateList(notes)
+
+        notesAdapter.updateList(db.noteDao.findAll())
         recycler_view.adapter = notesAdapter
     }
 
     fun addNote(view: View) {
+
 
         finish()
         val intent = Intent(this, AddNoteActivity::class.java)

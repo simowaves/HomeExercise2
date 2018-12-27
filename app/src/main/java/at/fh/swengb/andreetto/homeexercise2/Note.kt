@@ -1,6 +1,12 @@
 package at.fh.swengb.andreetto.homeexercise2
 
-class Note (val noteTitle: String , val noteContent: String) {
+
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+
+
+@Entity
+class Note (@PrimaryKey val noteTitle: String, val noteContent: String) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -19,3 +25,4 @@ class Note (val noteTitle: String , val noteContent: String) {
         return result
     }
 }
+

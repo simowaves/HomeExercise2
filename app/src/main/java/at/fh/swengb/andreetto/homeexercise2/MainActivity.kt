@@ -12,19 +12,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        getSharedPreferences(packageName, Context.MODE_PRIVATE) // from within activity
     }
 
     fun addUser(view: View) {
 
-        val sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
+
+        // Storing Inputted UserData
         sharedPreferences.edit().putString("MY_USER_NAME", user_name.text.toString()).apply()
         sharedPreferences.edit().putInt("MY_USER_AGE", user_age.text.toString().toIntOrNull() ?: 0).apply()
 
         finish()
         val intent = Intent(this, NoteListActivity::class.java)
         startActivity(intent)
-
     }
 }
