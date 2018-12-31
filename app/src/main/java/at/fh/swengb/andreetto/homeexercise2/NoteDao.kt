@@ -13,5 +13,9 @@ interface NoteDao {
     @Query ("SELECT * FROM Note")
     fun findAll():List<Note>
 
+    @Query("DELETE FROM Note")
+    fun deleteAllNotes()
 
+    @Query("SELECT * FROM Note WHERE user = :user")
+    fun findByUser(user: String):List<Note>
 }

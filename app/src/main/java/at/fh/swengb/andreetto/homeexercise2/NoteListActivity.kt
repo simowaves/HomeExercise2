@@ -17,6 +17,8 @@ class NoteListActivity : AppCompatActivity() {
 
     lateinit var db: NotesRoomDatabase
 
+    private lateinit var savedUser:String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_list)
@@ -28,30 +30,43 @@ class NoteListActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
 
-        val savedUser = sharedPreferences.getString("MY_USER_NAME", null)
+        savedUser = sharedPreferences.getString("MY_USER_NAME", null)
         val savedAge  = sharedPreferences.getInt("MY_USER_AGE", -1).toString()
 
-        user_info.text = "User: ${savedUser}  Age: ${savedAge}"
+        user_info.text = "Notes for ${savedUser}, ${savedAge}"
         Log.i("MyActivity", "onCreate User: ${savedUser}  Age: ${savedAge}")
 
         db = NotesRoomDatabase.getDatabase(this)
         notesAdapter.updateList(db.noteDao.findAll())
     }
 
-    override fun onStart() {
-
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
 
         notesAdapter.updateList(db.noteDao.findAll())
+        filter_user.text = "FILTER"
         recycler_view.adapter = notesAdapter
+    }
+
+    fun filterUser (view: View){
+        if (filter_user.text == "FILTER") {
+            notesAdapter.updateList(db.noteDao.findByUser(savedUser))
+            filter_user.text = "ALL"
+        } else {
+            notesAdapter.updateList(db.noteDao.findAll())
+            filter_user.text = "FILTER"
+        }
     }
 
     fun addNote(view: View) {
 
-
-        finish()
         val intent = Intent(this, AddNoteActivity::class.java)
         startActivity(intent)
 
+    }
+
+    fun clearNotes(view: View){
+        db.noteDao.deleteAllNotes()
+        notesAdapter.updateList(db.noteDao.findAll())
     }
 }

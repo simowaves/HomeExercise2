@@ -29,13 +29,11 @@ class AddNoteActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences(packageName, Context.MODE_PRIVATE)
         val savedUser = sharedPreferences.getString("MY_USER_NAME", null)
 
-        val note  = Note(title , content)
+        val note  = Note(title , content, savedUser)
 
 
         db.noteDao.insert(note)
 
         finish()
-        val intent = Intent(this, NoteListActivity::class.java)
-        startActivity(intent)
     }
 }
