@@ -36,7 +36,7 @@ class NoteListActivity : AppCompatActivity() {
         user_info.text = "Notes for ${savedUser}, ${savedAge}"
         Log.i("MyActivity", "onCreate User: ${savedUser}  Age: ${savedAge}")
 
-        db = NotesRoomDatabase.getDatabase(this)
+        db = NotesRoomDatabase.getDatabase(applicationContext)
         notesAdapter.updateList(db.noteDao.findAll())
     }
 

@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         // Storing Inputted UserData
         sharedPreferences.edit().putString("MY_USER_NAME", user_name.text.toString()).apply()
-        sharedPreferences.edit().putInt("MY_USER_AGE", user_age.text.toString().toIntOrNull() ?: 0).apply()
+        sharedPreferences.edit().putInt("MY_USER_AGE", user_age.text.toString().toIntOrNull() ?: 42).apply()
 
         finish()
         val intent = Intent(this, NoteListActivity::class.java)
